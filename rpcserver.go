@@ -3320,7 +3320,7 @@ func handleSendRawTransaction(s *rpcServer, cmd interface{}, closeChan <-chan st
 
 	// Use 0 for the tag to represent local node.
 	tx := btcutil.NewTx(&msgTx)
-	acceptedTxs, err := s.cfg.TxMemPool.ProcessTransaction(tx, false, false, 0)
+	acceptedTxs, err := s.cfg.TxMemPool.ProcessTransaction(tx, false, false, 0, c.MaxFeeRate)
 	if err != nil {
 		// When the error is a rule error, it means the transaction was
 		// simply rejected as opposed to something actually going wrong,
