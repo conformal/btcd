@@ -668,6 +668,15 @@ func NewInvalidateBlockCmd(blockHash string) *InvalidateBlockCmd {
 	}
 }
 
+// GetZmqNotificationsCmd defines the getzmqnotifications JSON-RPC command.
+type GetZmqNotificationsCmd struct{}
+
+// NewGetZmqNotificationsCmd returns a new instance which can be used to issue a
+// getzmqnotifications JSON-RPC command.
+func NewGetZmqNotificationsCmd() *GetZmqNotificationsCmd {
+	return &GetZmqNotificationsCmd{}
+}
+
 // PingCmd defines the ping JSON-RPC command.
 type PingCmd struct{}
 
@@ -921,6 +930,7 @@ func init() {
 	MustRegisterCmd("gettxout", (*GetTxOutCmd)(nil), flags)
 	MustRegisterCmd("gettxoutproof", (*GetTxOutProofCmd)(nil), flags)
 	MustRegisterCmd("gettxoutsetinfo", (*GetTxOutSetInfoCmd)(nil), flags)
+	MustRegisterCmd("getzmqnotifications", (*GetZmqNotificationsCmd)(nil), flags)
 	MustRegisterCmd("getwork", (*GetWorkCmd)(nil), flags)
 	MustRegisterCmd("help", (*HelpCmd)(nil), flags)
 	MustRegisterCmd("invalidateblock", (*InvalidateBlockCmd)(nil), flags)
