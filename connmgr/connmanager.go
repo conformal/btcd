@@ -210,15 +210,16 @@ func (cm *ConnManager) handleFailedConn(c *ConnReq) {
 			log.Debugf("Max failed connection attempts reached: [%d] "+
 				"-- retrying connection in: %v", maxFailedAttempts,
 				cm.cfg.RetryDuration)
+			theId := c.id
 			time.AfterFunc(cm.cfg.RetryDuration, func() {
-				cm.Remove(c.id)
+				cm.Remove(theId)
 				cm.NewConnReq()
 			})
 		} else {
-			go func() {
-				cm.Remove(c.id)
+			go func(theId uint64) {
+				cm.Remove(theId)
 				cm.NewConnReq()
-			}()
+			}(c.id)
 		}
 	}
 }
