@@ -211,10 +211,14 @@ func (cm *ConnManager) handleFailedConn(c *ConnReq) {
 				"-- retrying connection in: %v", maxFailedAttempts,
 				cm.cfg.RetryDuration)
 			time.AfterFunc(cm.cfg.RetryDuration, func() {
+				cm.Remove(c.id)
 				cm.NewConnReq()
 			})
 		} else {
-			go cm.NewConnReq()
+			go func() {
+				cm.Remove(c.id)
+				cm.NewConnReq()
+			}()
 		}
 	}
 }
