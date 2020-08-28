@@ -1302,6 +1302,18 @@ func TestChainSvrCmds(t *testing.T) {
 				Proof: "test",
 			},
 		},
+		{
+			name: "getzmqnotifications",
+			newCmd: func() (interface{}, error) {
+				return btcjson.NewCmd("getzmqnotifications")
+			},
+			staticCmd: func() interface{} {
+				return btcjson.NewGetZmqNotificationsCmd()
+			},
+
+			marshalled:   `{"jsonrpc":"1.0","method":"getzmqnotifications","params":[],"id":1}`,
+			unmarshalled: &btcjson.GetZmqNotificationsCmd{},
+		},
 	}
 
 	t.Logf("Running %d tests", len(tests))

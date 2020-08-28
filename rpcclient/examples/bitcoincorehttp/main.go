@@ -13,9 +13,9 @@ import (
 func main() {
 	// Connect to local bitcoin core RPC server using HTTP POST mode.
 	connCfg := &rpcclient.ConnConfig{
-		Host:         "localhost:8332",
-		User:         "yourrpcuser",
-		Pass:         "yourrpcpass",
+		Host:         "localhost:18332",
+		User:         "regtest",
+		Pass:         "regtest",
 		HTTPPostMode: true, // Bitcoin core only supports HTTP POST mode
 		DisableTLS:   true, // Bitcoin core does not provide TLS by default
 	}
@@ -25,7 +25,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	defer client.Shutdown()
+	// defer client.Shutdown()
 
 	// Get the current block count.
 	blockCount, err := client.GetBlockCount()
