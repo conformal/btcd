@@ -133,6 +133,7 @@ func TestCalcSequenceLock(t *testing.T) {
 		blockTime = blockTime.Add(time.Second)
 		node = newFakeNode(node, blockVersion, 0, blockTime)
 		chain.index.AddNode(node)
+		node.BuildAncestor()
 		chain.bestChain.SetTip(node)
 	}
 
@@ -474,9 +475,13 @@ func TestLocateInventory(t *testing.T) {
 	branch1Nodes := chainedNodes(branch0Nodes[14], 2)
 	for _, node := range branch0Nodes {
 		chain.index.AddNode(node)
+		node.BuildAncestor()
+
 	}
 	for _, node := range branch1Nodes {
 		chain.index.AddNode(node)
+		node.BuildAncestor()
+
 	}
 	chain.bestChain.SetTip(tip(branch0Nodes))
 
@@ -815,12 +820,16 @@ func TestHeightToHashRange(t *testing.T) {
 	for _, node := range branch0Nodes {
 		chain.index.SetStatusFlags(node, statusValid)
 		chain.index.AddNode(node)
+		node.BuildAncestor()
+
 	}
 	for _, node := range branch1Nodes {
 		if node.height < 18 {
 			chain.index.SetStatusFlags(node, statusValid)
 		}
 		chain.index.AddNode(node)
+		node.BuildAncestor()
+
 	}
 	chain.bestChain.SetTip(tip(branch0Nodes))
 
@@ -907,12 +916,16 @@ func TestIntervalBlockHashes(t *testing.T) {
 	for _, node := range branch0Nodes {
 		chain.index.SetStatusFlags(node, statusValid)
 		chain.index.AddNode(node)
+		node.BuildAncestor()
+
 	}
 	for _, node := range branch1Nodes {
 		if node.height < 18 {
 			chain.index.SetStatusFlags(node, statusValid)
 		}
 		chain.index.AddNode(node)
+		node.BuildAncestor()
+
 	}
 	chain.bestChain.SetTip(tip(branch0Nodes))
 

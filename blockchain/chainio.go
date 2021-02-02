@@ -1186,6 +1186,7 @@ func (b *BlockChain) initChainState() error {
 			// and add it to the block index.
 			node := new(blockNode)
 			initBlockNode(node, header, parent)
+			node.BuildAncestor()
 			node.status = status
 			b.index.addNode(node)
 

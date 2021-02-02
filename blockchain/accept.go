@@ -68,6 +68,7 @@ func (b *BlockChain) maybeAcceptBlock(block *btcutil.Block, flags BehaviorFlags)
 	newNode.status = statusDataStored
 
 	b.index.AddNode(newNode)
+	newNode.BuildAncestor()
 	err = b.index.flushToDB()
 	if err != nil {
 		return false, err
