@@ -2452,7 +2452,7 @@ func (s *server) ScheduleShutdown(duration time.Duration) {
 				s.Stop()
 				break out
 			case <-ticker.C:
-				remaining = remaining - tickDuration
+				remaining -= tickDuration
 				if remaining < time.Second {
 					continue
 				}
